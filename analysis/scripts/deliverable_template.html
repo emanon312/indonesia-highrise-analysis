@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Indonesia High-Rise Landscape — 12 Cities</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>__VENDOR_CSS__</style>
+<style>
+:root{
+  --paper:#f6f7f9; --card:#ffffff; --ink:#14202e; --muted:#5f7189; --line:#dce1e8;
+  --brand:#1a3a5c; --brand-d:#0f2740; --accent:#c0842a;
+  --t80:#b3202e; --t64:#e0662c; --t48:#d9a520; --t40:#4e9e5a; --t32:#3a6ea5;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--paper);color:var(--ink);
+  font-family:'Inter',system-ui,sans-serif;font-size:14px;line-height:1.5;-webkit-font-smoothing:antialiased}
+h1,h2,h3,.disp{font-family:'Space Grotesk','Inter',sans-serif}
+.mono{font-family:'IBM Plex Mono',monospace;font-variant-numeric:tabular-nums}
+a{color:var(--brand)}
+
+/* ---------- Header ---------- */
+header{position:sticky;top:0;z-index:1200;background:var(--brand-d);color:#eef3f8;
+  border-bottom:2px solid var(--accent)}
+.hwrap{max-width:1440px;margin:0 auto;padding:14px 22px;display:flex;align-items:center;gap:22px;flex-wrap:wrap}
+.brand{display:flex;flex-direction:column;gap:1px;margin-right:auto}
+.brand .t{font-family:'Space Grotesk';font-weight:700;font-size:19px;letter-spacing:-.02em}
+.brand .s{font-size:11.5px;color:#9fb4cc;font-weight:400}
+.tabs{display:flex;gap:2px;background:rgba(255,255,255,.08);padding:3px;border-radius:8px}
+.tab{appearance:none;border:0;background:transparent;color:#c4d3e4;font:600 13px 'Space Grotesk';
+  padding:7px 16px;border-radius:6px;cursor:pointer;transition:.15s}
+.tab:hover{color:#fff}
+.tab.on{background:var(--accent);color:#1a1206}
+.tab:focus-visible{outline:2px solid #fff;outline-offset:1px}
+.expbtn{appearance:none;border:1px solid rgba(255,255,255,.35);background:transparent;color:#eef3f8;
+  font:600 12.5px 'Space Grotesk';padding:8px 14px;border-radius:6px;cursor:pointer;transition:.15s}
+.expbtn:hover{background:var(--accent);border-color:var(--accent);color:#1a1206}
+
+/* ---------- Views ---------- */
+.view{display:none}
+.view.on{display:block}
+.wrap{max-width:1440px;margin:0 auto;padding:26px 22px}
+
+/* ---------- Overview ---------- */
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:30px}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px 18px}
+.kpi .n{font-family:'Space Grotesk';font-weight:700;font-size:30px;letter-spacing:-.02em;line-height:1}
+.kpi .l{font-size:12px;color:var(--muted);margin-top:6px}
+.kpi.accent .n{color:var(--brand)}
+.kpi.hot .n{color:var(--t80)}
+
+.sec{margin-bottom:34px}
+.sechead{display:flex;align-items:baseline;gap:12px;margin-bottom:4px}
+.sechead h2{font-size:17px;font-weight:600;margin:0;letter-spacing:-.01em}
+.sechead .k{font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:var(--accent);font-weight:600}
+.secsub{font-size:12.5px;color:var(--muted);margin:0 0 18px}
+
+/* Signature: skyline profiles */
+.skygrid{display:grid;grid-template-columns:repeat(6,1fr);gap:12px}
+.skycard{background:var(--card);border:1px solid var(--line);border-radius:9px;padding:12px 12px 10px;
+  transition:.18s;overflow:hidden}
+.skycard:hover{border-color:var(--brand);transform:translateY(-2px);box-shadow:0 6px 18px rgba(20,32,46,.09)}
+.skywrap{height:54px;display:flex;align-items:flex-end;border-bottom:1px solid var(--line);padding-bottom:2px}
+.sky{width:100%;height:54px}
+.sky rect{transform-box:fill-box;transform-origin:bottom;animation:rise .7s cubic-bezier(.2,.8,.2,1) both}
+.skymeta{display:flex;justify-content:space-between;align-items:baseline;margin-top:9px}
+.skyname{font-family:'Space Grotesk';font-weight:600;font-size:13px}
+.skynum{font-family:'IBM Plex Mono';font-size:13px;color:var(--brand);font-weight:500}
+.skymax{font-family:'IBM Plex Mono';font-size:10.5px;color:var(--muted);margin-top:1px}
+@keyframes rise{from{transform:scaleY(0)}to{transform:scaleY(1)}}
+
+/* Height distribution */
+.tierbar{display:flex;height:38px;border-radius:8px;overflow:hidden;border:1px solid var(--line)}
+.tseg{transition:.2s}
+.tierlegend{display:flex;flex-wrap:wrap;gap:16px;margin-top:14px}
+.lgi{display:flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink)}
+.lgi i{width:12px;height:12px;border-radius:3px;display:inline-block}
+.lgi b{font-family:'IBM Plex Mono';color:var(--muted);font-weight:500}
+
+.cols2{display:grid;grid-template-columns:1.4fr 1fr;gap:26px;align-items:start}
+.srclist{list-style:none;margin:0;padding:0;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:var(--card)}
+.srclist li{display:flex;justify-content:space-between;padding:12px 16px;border-bottom:1px solid var(--line);font-size:13px}
+.srclist li:last-child{border-bottom:0}
+.srclist b{font-family:'IBM Plex Mono';color:var(--brand)}
+.note{font-size:12px;color:var(--muted);margin-top:12px;line-height:1.55}
+
+/* ---------- Map ---------- */
+#map{height:calc(100vh - 66px);width:100%}
+.maplegend{position:absolute;right:14px;top:80px;z-index:1000;background:rgba(255,255,255,.95);
+  border:1px solid var(--line);border-radius:8px;padding:11px 13px;font-size:12px;box-shadow:0 2px 10px rgba(0,0,0,.12)}
+.maplegend b{display:block;font-family:'Space Grotesk';margin-bottom:7px;font-size:11px;text-transform:uppercase;letter-spacing:.08em}
+.maplegend div{display:flex;align-items:center;gap:7px;margin:3px 0}
+.maplegend i{width:11px;height:11px;border-radius:50%;border:1px solid #fff;box-shadow:0 0 2px #888}
+.pop b{font-family:'Space Grotesk';font-size:14px}
+.pop table{border-collapse:collapse;margin-top:5px}
+.pop td{padding:1px 8px 1px 0;font-size:12px;vertical-align:top}
+.pop td:first-child{color:var(--muted);white-space:nowrap}
+.cltip{background:#111;color:#ffd400;border:none;font:600 11px 'Space Grotesk',sans-serif;padding:1px 5px;border-radius:3px;box-shadow:0 1px 3px rgba(0,0,0,.4)}
+.cltip::before{border-top-color:#111}
+/* Map filter + locate panel (top-left; matches .maplegend style) */
+.mapfilter{position:absolute;left:14px;top:80px;z-index:1000;width:262px;background:rgba(255,255,255,.95);
+  border:1px solid var(--line);border-radius:8px;padding:11px 13px;box-shadow:0 2px 10px rgba(0,0,0,.12)}
+.mapfilter b{display:block;font-family:'Space Grotesk';margin-bottom:8px;font-size:11px;text-transform:uppercase;letter-spacing:.08em}
+.mapfilter input,.mapfilter select{width:100%;font:13px 'Inter';padding:6px 9px;border:1px solid var(--line);
+  border-radius:6px;background:#fff;color:var(--ink);margin-bottom:6px}
+.mapfilter input:focus,.mapfilter select:focus{outline:2px solid var(--brand);outline-offset:-1px;border-color:var(--brand)}
+.mfrow{display:flex;gap:6px}
+.mfrow input,.mfrow select{width:50%}
+.mfcount{display:block;font-size:11px;color:var(--muted);margin:1px 0 8px}
+.mflist{max-height:260px;overflow:auto;border-top:1px solid var(--line)}
+.mfitem{padding:7px 8px;border-bottom:1px solid var(--line);cursor:pointer;font-size:12px;line-height:1.35;color:var(--ink)}
+.mfitem:hover{background:#eef4fa}
+.mfitem:last-child{border-bottom:0}
+.mfmore{padding:7px 8px;font-size:11px;color:var(--muted)}
+
+/* ---------- Directory ---------- */
+.toolbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:16px}
+.toolbar input,.toolbar select{font:14px 'Inter';padding:9px 12px;border:1px solid var(--line);
+  border-radius:7px;background:var(--card);color:var(--ink)}
+.toolbar input{flex:1;min-width:220px}
+.toolbar input:focus,.toolbar select:focus{outline:2px solid var(--brand);outline-offset:-1px;border-color:var(--brand)}
+.count{font-size:12.5px;color:var(--muted);margin-left:auto}
+table.dir{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--line);border-radius:10px;overflow:hidden}
+table.dir th{background:#eef2f6;text-align:left;font:600 12px 'Space Grotesk';color:var(--brand-d);
+  padding:11px 13px;border-bottom:2px solid var(--line);cursor:pointer;user-select:none;white-space:nowrap}
+table.dir th:hover{background:#e4ebf2}
+table.dir th .ar{color:var(--accent);font-size:10px}
+table.dir td{padding:10px 13px;border-bottom:1px solid var(--line);font-size:13px}
+table.dir tr:hover td{background:#f9fbfd}
+td.h{font-family:'IBM Plex Mono';font-weight:500}
+td.tier{white-space:nowrap}
+.dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:6px;vertical-align:middle}
+.pager{display:flex;gap:6px;align-items:center;justify-content:center;margin-top:18px;flex-wrap:wrap}
+.pager button{font:600 13px 'Space Grotesk';padding:7px 13px;border:1px solid var(--line);
+  background:var(--card);border-radius:6px;cursor:pointer;color:var(--ink)}
+.pager button:hover:not(:disabled){border-color:var(--brand);color:var(--brand)}
+.pager button:disabled{opacity:.4;cursor:default}
+.pager .pg{font:13px 'IBM Plex Mono';color:var(--muted)}
+
+footer{max-width:1440px;margin:0 auto;padding:20px 22px 40px;color:var(--muted);font-size:11.5px;line-height:1.6;border-top:1px solid var(--line)}
+
+@media(max-width:1080px){.skygrid{grid-template-columns:repeat(4,1fr)}.kpis{grid-template-columns:repeat(2,1fr)}.cols2{grid-template-columns:1fr}}
+@media(max-width:640px){.skygrid{grid-template-columns:repeat(2,1fr)}.hwrap{gap:12px}.brand{margin-right:0;width:100%}}
+@media(prefers-reduced-motion:reduce){.sky rect{animation:none}.skycard{transition:none}}
+</style>
+</head>
+<body>
+<header>
+  <div class="hwrap">
+    <div class="brand">
+      <span class="t">Indonesia High-Rise Landscape</span>
+      <span class="s">__TOTAL__ buildings ≥32m across __CITIES__ cities · Jakarta official registry (DPMPTSP) + Google&nbsp;/&nbsp;CTBUH estimates</span>
+    </div>
+    <div class="tabs" role="tablist">
+      <button class="tab on" data-v="ov" role="tab">Overview</button>
+      <button class="tab" data-v="map" role="tab">Map</button>
+      <button class="tab" data-v="dir" role="tab">Directory</button>
+    </div>
+    <button class="expbtn" id="exp">Export CSV</button>
+  </div>
+</header>
+
+<!-- ===== Overview ===== -->
+<section class="view on" id="ov">
+  <div class="wrap">
+    <div class="kpis">
+      <div class="kpi accent"><div class="n">__TOTAL__</div><div class="l">Buildings ≥32m (≈8 floors)</div></div>
+      <div class="kpi"><div class="n">__CITIES__</div><div class="l">Cities surveyed</div></div>
+      <div class="kpi hot"><div class="n">__HIGH__</div><div class="l">Supertall ≥80m (≈20 floors)</div></div>
+      <div class="kpi accent"><div class="n">__OFFICIAL__</div><div class="l">Official-registry verified (Jakarta)</div></div>
+    </div>
+    <p class="secsub" style="margin-top:-18px">Two counting methods: __CALIBER__. Nearby buildings of the same complex are grouped into clusters.</p>
+
+    <div class="sec">
+      <div class="sechead"><span class="k">Signature</span><h2>City Skyline Profiles</h2></div>
+      <p class="secsub">Every building drawn to true height, tallest to shortest — each city's silhouette at a glance. Color encodes height tier. Cities ordered by count.</p>
+      <div class="skygrid">__SKYCARDS__</div>
+    </div>
+
+    <div class="cols2">
+      <div class="sec">
+        <div class="sechead"><h2>Height Distribution</h2></div>
+        <p class="secsub">All __TOTAL__ buildings by height tier.</p>
+        <div class="tierbar">__TIERBAR__</div>
+        <div class="tierlegend">__TIERLEGEND__</div>
+      </div>
+      <div class="sec">
+        <div class="sechead"><h2>Data Source</h2></div>
+        <p class="secsub">Provenance of each building's coordinates &amp; height.</p>
+        <ul class="srclist">__SRCITEMS__</ul>
+        <p class="note">Jakarta uses the DPMPTSP official 3D registry (surveyed truth). Other cities use Google V3 footprints + 2.5D height estimates; a subset of landmark towers carry CTBUH-surveyed true heights. Building names &amp; addresses are kept in the original Indonesian.</p>
+      </div>
+    </div>
+  </div>
+  <footer>Indonesia High-Rise Landscape · Jakarta figures are official (DPMPTSP, ≥32m subset); other 11 cities are conservative lower-bound estimates from Google Open Buildings V3 + 2.5D and CTBUH landmarks. Category values for non-Jakarta cities are partly inferred from building names and may be marked Unclassified where no signal exists. Basemap tiles require an internet connection.</footer>
+</section>
+
+<!-- ===== Map ===== -->
+<section class="view" id="map-view">
+  <div id="map"></div>
+  <div class="mapfilter">
+    <b>Filter &amp; locate</b>
+    <input id="mfName" type="search" placeholder="Building / cluster name…" aria-label="Filter by name">
+    <select id="mfCat" aria-label="Filter by category"></select>
+    <div class="mfrow">
+      <input id="mfH" type="number" min="0" placeholder="Height ≥ m" aria-label="Minimum height">
+      <select id="mfCity" aria-label="Filter by city"></select>
+    </div>
+    <span class="mfcount" id="mfCount"></span>
+    <div class="mflist" id="mfList"></div>
+  </div>
+  <div class="maplegend">
+    <b>Height Tier</b>
+    <div><i style="background:#b3202e"></i>≥80m (~20F)</div>
+    <div><i style="background:#e0662c"></i>≥64m (~16F)</div>
+    <div><i style="background:#d9a520"></i>≥48m (~12F)</div>
+    <div><i style="background:#4e9e5a"></i>≥40m (~10F)</div>
+    <div><i style="background:#3a6ea5"></i>≥32m (~8F)</div>
+    <div style="margin-top:6px;padding-top:6px;border-top:1px solid #ddd"><i style="background:#ffd400;border:1.5px solid #111;box-shadow:none"></i>Cluster ring + name</div>
+  </div>
+</section>
+
+<!-- ===== Directory ===== -->
+<section class="view" id="dir">
+  <div class="wrap">
+    <div class="toolbar">
+      <input id="q" type="search" placeholder="Search building, city or district…" aria-label="Search">
+      <select id="fcity" aria-label="Filter by city"></select>
+      <select id="ftier" aria-label="Filter by height">
+        <option value="">All heights</option>
+        <option value="80">≥80m</option><option value="64">≥64m</option>
+        <option value="48">≥48m</option><option value="40">≥40m</option><option value="32">≥32m</option>
+      </select>
+      <span class="count" id="cnt"></span>
+    </div>
+    <table class="dir">
+      <thead><tr>
+        <th data-s="i">#</th>
+        <th data-s="n">Building Name</th>
+        <th data-s="c">City</th>
+        <th data-s="h">Height (m)</th>
+        <th data-s="fl">Floors</th>
+        <th data-s="cat">Category</th>
+        <th data-s="cl">Cluster</th>
+        <th data-s="d">District</th>
+        <th data-s="s">Data Source</th>
+      </tr></thead>
+      <tbody id="tb"></tbody>
+    </table>
+    <div class="pager">
+      <button id="prev">‹ Prev</button>
+      <span class="pg" id="pg"></span>
+      <button id="next">Next ›</button>
+    </div>
+  </div>
+</section>
+
+<script>__VENDOR_JS__</script>
+<script>
+var PTS=__DATA__;
+PTS.forEach(function(p,i){p.i=i+1;});
+function tc(h){return h>=80?'#b3202e':h>=64?'#e0662c':h>=48?'#d9a520':h>=40?'#4e9e5a':'#3a6ea5';}
+function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+
+/* ---- view switching ---- */
+var mapReady=false;
+document.querySelectorAll('.tab').forEach(function(t){
+  t.addEventListener('click',function(){
+    document.querySelectorAll('.tab').forEach(x=>x.classList.remove('on'));
+    t.classList.add('on');
+    var v=t.dataset.v;
+    document.getElementById('ov').classList.toggle('on',v==='ov');
+    document.getElementById('map-view').classList.toggle('on',v==='map');
+    document.getElementById('dir').classList.toggle('on',v==='dir');
+    if(v==='map'){initMap();setTimeout(function(){map.invalidateSize();},50);}
+  });
+});
+
+/* ---- map ---- */
+var map,cluster,markers={};
+/* Cluster display name: use the tallest member's name; fall back to City-ClusterNo if unnamed */
+function groupName(cid,ms){
+  var m0=ms[0];
+  ms.forEach(function(p){ if(p.h>m0.h) m0=p; });
+  return m0.n==='(unnamed)' ? m0.c+'-'+cid.split('-')[1] : m0.n;
+}
+function initMap(){
+  if(mapReady)return; mapReady=true;
+  map=L.map('map').setView([-2.5,118],5);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+    {maxZoom:19,attribution:'&copy; OpenStreetMap'}).addTo(map);
+  cluster=L.markerClusterGroup({maxClusterRadius:45,chunkedLoading:true});
+  var b=[];
+  PTS.forEach(function(p){
+    var cl=p.cl&&p.cl.length;
+    var m=L.circleMarker([p.lat,p.lon],cl?
+      {radius:6,color:'#111',weight:2,fillColor:tc(p.h),fillOpacity:.9}:
+      {radius:5,color:'#fff',weight:1,fillColor:tc(p.h),fillOpacity:.85});
+    m.bindPopup('<div class="pop"><b>'+esc(p.n)+'</b><table>'+
+      '<tr><td>City</td><td>'+esc(p.c)+'</td></tr>'+
+      '<tr><td>Height</td><td>'+p.h+' m</td></tr>'+
+      '<tr><td>Floors</td><td>'+esc(p.fl)+'</td></tr>'+
+      '<tr><td>Category</td><td>'+esc(p.cat)+'</td></tr>'+
+      '<tr><td>District</td><td>'+esc(p.d)+'</td></tr>'+
+      '<tr><td>Data source</td><td>'+esc(p.s)+'</td></tr>'+
+      (cl?'<tr><td>Cluster</td><td><b>'+esc(p.cl)+'</b> (likely complex)</td></tr>':'')+
+      '<tr><td>Address</td><td>'+esc(p.a)+'</td></tr></table></div>');
+    markers[p.i]=m;
+    cluster.addLayer(m); b.push([p.lat,p.lon]);
+  });
+  map.addLayer(cluster);
+  if(b.length)map.fitBounds(b,{padding:[30,30]});
+  // ===== Cluster rings + IDs: enclosing yellow circle + permanent label per proximity cluster, shown at zoom>=11 =====
+  var groups={};
+  PTS.forEach(function(p){ if(p.cl&&p.cl.length){ (groups[p.cl]=groups[p.cl]||[]).push(p); } });
+  var ringLayer=L.layerGroup();
+  Object.keys(groups).forEach(function(cid){
+    var ms=groups[cid], lat=0, lon=0;
+    ms.forEach(function(p){ lat+=p.lat; lon+=p.lon; }); lat/=ms.length; lon/=ms.length;
+    var r=0; ms.forEach(function(p){ var d=map.distance([lat,lon],[p.lat,p.lon]); if(d>r) r=d; });
+    r=Math.max(r+22, 35);
+    var circ=L.circle([lat,lon],{radius:r,color:'#111',weight:1.5,opacity:.75,fillColor:'#ffd400',fillOpacity:.15});
+    circ.bindTooltip(esc(groupName(cid,ms))+' ('+ms.length+')',{permanent:true,direction:'top',className:'cltip'});
+    circ.bindPopup('<b>'+esc(groupName(cid,ms))+'</b> likely complex<br>'+ms.length+' buildings:<br>'+
+      ms.map(function(p){return esc(p.n)+' '+p.h+'m';}).join('<br>'));
+    ringLayer.addLayer(circ);
+  });
+  function toggleRings(){
+    if(map.getZoom()>=11){ if(!map.hasLayer(ringLayer)) ringLayer.addTo(map); }
+    else { if(map.hasLayer(ringLayer)) map.removeLayer(ringLayer); }
+  }
+  map.on('zoomend',toggleRings); toggleRings();
+
+  // ===== Map filter panel + click-to-jump result list =====
+  var mfName=document.getElementById('mfName'),mfCat=document.getElementById('mfCat'),
+      mfH=document.getElementById('mfH'),mfCity=document.getElementById('mfCity'),
+      mfCount=document.getElementById('mfCount'),mfList=document.getElementById('mfList');
+  // Populate category/city dropdowns once, each with an "All" option
+  var mfCats=[...new Set(PTS.map(p=>p.cat))].filter(Boolean).sort();
+  mfCat.innerHTML='<option value="">All categories</option>'+mfCats.map(c=>'<option>'+esc(c)+'</option>').join('');
+  var mfCities=[...new Set(PTS.map(p=>p.c))].sort();
+  mfCity.innerHTML='<option value="">All cities</option>'+mfCities.map(c=>'<option>'+esc(c)+'</option>').join('');
+  function applyMapFilter(){
+    var nm=mfName.value.trim().toLowerCase(),ct=mfCat.value,hmin=mfH.value?+mfH.value:0,cy=mfCity.value;
+    var res=PTS.filter(function(p){
+      if(nm&&String(p.n).toLowerCase().indexOf(nm)<0)return false;   // name substring match, case-insensitive
+      if(ct&&p.cat!==ct)return false;                                 // exact category match
+      if(hmin&&!(p.h>=hmin))return false;                             // height >=
+      if(cy&&p.c!==cy)return false;                                   // exact city match
+      return true;
+    });
+    mfCount.textContent=res.length.toLocaleString()+' match'+(res.length===1?'':'es');
+    var shown=res.slice(0,300),html=shown.map(function(p){           // performance: render at most 300 items
+      return '<div class="mfitem" data-i="'+p.i+'">'+esc(p.n)+' · '+esc(p.c)+' · '+p.h.toFixed(0)+'m · '+esc(p.cat)+'</div>';
+    }).join('');
+    if(res.length>300){html+='<div class="mfmore">'+(res.length-300)+' more — narrow your filters</div>';}
+    mfList.innerHTML=html;
+  }
+  mfName.addEventListener('input',applyMapFilter);
+  mfH.addEventListener('input',applyMapFilter);
+  mfCat.addEventListener('change',applyMapFilter);
+  mfCity.addEventListener('change',applyMapFilter);
+  mfList.addEventListener('click',function(e){                       // click a list item: unspiderfy the cluster and open its popup
+    var it=e.target.closest('.mfitem'); if(!it)return;
+    var m=markers[it.dataset.i]; if(!m)return;
+    cluster.zoomToShowLayer(m,function(){ m.openPopup(); });
+  });
+  applyMapFilter();
+}
+
+/* ---- directory ---- */
+var PER=100,page=1,sortKey='h',sortDir=-1,filtered=PTS.slice();
+var q=document.getElementById('q'),fcity=document.getElementById('fcity'),ftier=document.getElementById('ftier');
+var cities=[...new Set(PTS.map(p=>p.c))].sort();
+fcity.innerHTML='<option value="">All cities</option>'+cities.map(c=>'<option>'+esc(c)+'</option>').join('');
+function apply(){
+  var s=q.value.trim().toLowerCase(),fc=fcity.value,ft=ftier.value?+ftier.value:0;
+  filtered=PTS.filter(function(p){
+    if(fc&&p.c!==fc)return false;
+    if(ft){var lo=ft,hi=ft===80?1e9:ft===64?80:ft===48?64:ft===40?48:40;if(!(p.h>=lo&&p.h<hi))return false;}
+    if(s){return (p.n+' '+p.c+' '+p.d).toLowerCase().indexOf(s)>=0;}
+    return true;
+  });
+  sortNow(); page=1; render();
+}
+function sortNow(){
+  filtered.sort(function(a,b){
+    var x=a[sortKey],y=b[sortKey];
+    if(typeof x==='string'){x=x.toLowerCase();y=String(y).toLowerCase();}
+    return x<y?-1*sortDir:x>y?1*sortDir:0;
+  });
+}
+function render(){
+  var tot=filtered.length,pages=Math.max(1,Math.ceil(tot/PER));
+  if(page>pages)page=pages;
+  var st=(page-1)*PER,rows=filtered.slice(st,st+PER);
+  document.getElementById('tb').innerHTML=rows.map(function(p){
+    return '<tr><td class="mono">'+p.i+'</td><td>'+esc(p.n)+'</td><td>'+esc(p.c)+'</td>'+
+      '<td class="h">'+p.h.toFixed(1)+'</td><td class="mono">'+esc(p.fl)+'</td>'+
+      '<td class="tier"><span class="dot" style="background:'+tc(p.h)+'"></span>'+esc(p.cat)+'</td>'+
+      '<td>'+esc(p.cl)+'</td>'+
+      '<td>'+esc(p.d)+'</td><td>'+esc(p.s)+'</td></tr>';
+  }).join('');
+  document.getElementById('cnt').textContent=tot.toLocaleString()+' buildings';
+  document.getElementById('pg').textContent='Page '+page+' / '+pages;
+  document.getElementById('prev').disabled=page<=1;
+  document.getElementById('next').disabled=page>=pages;
+}
+q.addEventListener('input',apply);fcity.addEventListener('change',apply);ftier.addEventListener('change',apply);
+document.getElementById('prev').onclick=function(){if(page>1){page--;render();}};
+document.getElementById('next').onclick=function(){page++;render();};
+document.querySelectorAll('table.dir th').forEach(function(th){
+  th.addEventListener('click',function(){
+    var k=th.dataset.s;
+    if(sortKey===k)sortDir*=-1;else{sortKey=k;sortDir=(k==='h')?-1:1;}
+    document.querySelectorAll('table.dir th').forEach(x=>{var a=x.querySelector('.ar');if(a)a.remove();});
+    var ar=document.createElement('span');ar.className='ar';ar.textContent=sortDir>0?' ▲':' ▼';th.appendChild(ar);
+    sortNow();render();
+  });
+});
+
+/* ---- export current filtered set ---- */
+document.getElementById('exp').addEventListener('click',function(){
+  var cols=['#','Building Name','City','Height(m)','Floors','Category','District','Sub-district','Data Source','Latitude','Longitude','Address'];
+  var lines=[cols.join(',')];
+  filtered.forEach(function(p){
+    var row=[p.i,p.n,p.c,p.h,p.fl,p.cat,p.d,p.sd,p.s,p.lat,p.lon,p.a].map(function(v){
+      v=String(v==null?'':v);return /[",\n]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v;});
+    lines.push(row.join(','));
+  });
+  var blob=new Blob(['﻿'+lines.join('\n')],{type:'text/csv;charset=utf-8'});
+  var a=document.createElement('a');a.href=URL.createObjectURL(blob);
+  a.download='Indonesia_HighRise_'+filtered.length+'.csv';a.click();
+});
+
+apply();
+</script>
+</body>
+</html>

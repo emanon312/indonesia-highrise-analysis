@@ -1,0 +1,25 @@
+# Python
+__pycache__/
+*.py[cod]
+
+# 本地工作区配置（个人约定，不入库）
+.claude/
+CLAUDE.md
+
+# 原始下载数据不入库（GB 级，可用 analysis/data/pipeline 脚本重新获取）
+analysis/data/*
+!analysis/data/pipeline
+
+# 第三方 agent 提供的输入清单，需自备
+analysis/data/other_agent_lists/
+
+# 系统文件
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# 大文件防呆
+*.npy
+*.rar
+*.parquet
+*.gpkg
